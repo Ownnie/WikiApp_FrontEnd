@@ -1,0 +1,36 @@
+{
+    "Entidades": [
+        {
+            "id": "1",
+            "nombre": "Google",
+            "fechaCreacion": "1998-09-04",
+            "wiki": "https://es.wikipedia.org/wiki/Google",
+            "imagen": "public/img/google.png",
+            "descripcion": "Google es una empresa multinacional especializada en productos y servicios relacionados con Internet, software, dispositivos electrónicos y otras tecnologías. Es conocida principalmente por su motor de búsqueda, aunque también desarrolla el sistema operativo Android y numerosos servicios en la nube."
+        },
+        {
+            "id": "2",
+            "nombre": "Microsoft",
+            "fechaCreacion": "1975-04-04",
+            "wiki": "https://es.wikipedia.org/wiki/Microsoft",
+            "imagen": "public/img/microsoft.webp",
+            "descripcion": "Microsoft Corporation es una empresa tecnológica multinacional estadounidense que desarrolla, licencia y da soporte a software, productos electrónicos y servicios. Su producto más conocido es el sistema operativo Windows y la suite de productividad Microsoft Office."
+        },
+        {
+            "id": "3",
+            "nombre": "Apple",
+            "fechaCreacion": "1976-04-01",
+            "wiki": "https://es.wikipedia.org/wiki/Apple_Inc.",
+            "imagen": "public/img/apple.png",
+            "descripcion": "Apple Inc. es una empresa tecnológica multinacional estadounidense que diseña, desarrolla y vende productos electrónicos de consumo, software y servicios en línea. Entre sus productos más conocidos están el iPhone, el iPad, el Mac y el sistema operativo iOS."
+        },
+        {
+            "id": "4",
+            "nombre": "IBM",
+            "fechaCreacion": "1911-06-16",
+            "wiki": "https://es.wikipedia.org/wiki/IBM",
+            "imagen": "public/img/ibm.jpg",
+            "descripcion": "IBM (International Business Machines Corporation) es una empresa multinacional de tecnología y consultoría con sede en Nueva York. Es conocida por su historial en hardware de computación, software empresarial y servicios de consultoría tecnológica."
+        }
+    ]
+}

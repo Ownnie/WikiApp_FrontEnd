@@ -1,0 +1,20 @@
+{
+    "Usuarios": [
+        {
+            "id": "1",
+            "nombre": "Juan",
+            "apellido": "Perez",
+            "email": "juan@gmail.com",
+            "password": "$2a$10$ZIMs.HoWzF1uJwK5Ye5PvO4KiqSlmILlI/bXgKxySUS3MG5CRF5Lu",
+            "rol": "writter"
+        },
+        {
+            "id": "2",
+            "nombre": "Julian",
+            "apellido": "Alvarez",
+            "email": "julian.alvarez@gmail.com",
+            "password": "$2a$10$ZIMs.HoWzF1uJwK5Ye5PvO4KiqSlmILlI/bXgKxySUS3MG5CRF5Lu",
+            "rol": "reader"
+        }
+    ]
+}

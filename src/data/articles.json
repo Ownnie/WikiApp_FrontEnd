@@ -1,0 +1,403 @@
+{
+    "Lenguajes": [
+        {
+            "Nombre": "Python",
+            "DatosImportantes": {
+                "AñoCreacion": 1991,
+                "Creador": "Guido van Rossum",
+                "Paradigma": "Multiparadigma (Orientado a objetos, funcional, imperativo, procedimental)",
+                "UltimaVersion": "3.10",
+                "Extensiones": [
+                    ".py",
+                    ".pyc",
+                    ".pyd",
+                    ".pyo",
+                    ".pyw"
+                ]
+            },
+            "img1": "public/img/python1.jpg",
+            "img2": "public/img/python2.jpg",
+            "Secciones": [
+                {
+                    "Titulo": "Historia",
+                    "Datos": "Python fue desarrollado a finales de los años 80 y liberado por primera vez en 1991. Guido van Rossum, su creador, buscaba un lenguaje de programación que fuera sencillo, legible y potente. La intención era mejorar algunos aspectos de lenguajes como ABC, eliminando limitaciones y agregando flexibilidad. Desde entonces, Python ha evolucionado significativamente con el lanzamiento de múltiples versiones que han introducido mejoras en su rendimiento, compatibilidad y nuevas funcionalidades.\n\nHoy en día, Python es uno de los lenguajes más populares del mundo, utilizado en ámbitos como el análisis de datos, desarrollo web, inteligencia artificial, automatización de procesos y ciberseguridad. Su amplia comunidad de desarrolladores y la extensa documentación han contribuido a su crecimiento y adopción global."
+                },
+                {
+                    "Titulo": "Características",
+                    "Datos": "Python es un lenguaje de alto nivel, interpretado y con una sintaxis clara y concisa. Su tipado dinámico permite a los desarrolladores escribir código sin especificar el tipo de datos explícitamente, lo que facilita la flexibilidad del lenguaje. Además, Python cuenta con un recolector de basura automático que optimiza la gestión de memoria y evita problemas de fugas de memoria.\n\nOtra característica destacada de Python es su amplia biblioteca estándar, que ofrece módulos y paquetes para manipulación de archivos, bases de datos, desarrollo web, análisis de datos, aprendizaje automático, entre otros. Su compatibilidad multiplataforma le permite ejecutarse en distintos sistemas operativos sin necesidad de modificaciones en el código fuente."
+                },
+                {
+                    "Titulo": "Funciones Principales",
+                    "Datos": "Python incluye una extensa biblioteca estándar y soporte para programación modular. Sus funciones principales incluyen manejo de estructuras de datos como listas, diccionarios y conjuntos, operaciones matemáticas avanzadas y compatibilidad con bases de datos SQL y NoSQL. Python también soporta concurrencia mediante el uso de hilos y procesos, lo que permite desarrollar aplicaciones eficientes.\n\nEl lenguaje también proporciona herramientas avanzadas para programación asíncrona, lo que es útil en el desarrollo de aplicaciones que requieren procesamiento en paralelo o en tiempo real. Su sintaxis sencilla y su orientación a objetos facilitan la reutilización del código y el mantenimiento de aplicaciones a largo plazo."
+                },
+                {
+                    "Titulo": "Usos",
+                    "Datos": "Python se usa en diversas industrias y áreas del conocimiento. En el desarrollo web, se emplea con frameworks como Django y Flask para la creación de aplicaciones robustas y escalables. En el análisis de datos y la inteligencia artificial, se ha convertido en el estándar gracias a bibliotecas como Pandas, NumPy, Scikit-Learn y TensorFlow.\n\nTambién es muy utilizado en automatización de tareas, permitiendo a los desarrolladores escribir scripts para optimizar procesos repetitivos, manipulación de archivos y administración de sistemas. Además, Python es popular en ciberseguridad, donde se usa para la creación de herramientas de análisis forense, explotación de vulnerabilidades y pruebas de penetración."
+                },
+                {
+                    "Titulo": "Funciones",
+                    "Parrafo": "Estas son algunas de las funciones que se utilizan en Python",
+                    "Datos": [
+                        {
+                            "Funcion": "len()",
+                            "Descripcion": "Devuelve la longitud de una lista, string o conjunto."
+                        },
+                        {
+                            "Funcion": "sum()",
+                            "Descripcion": "Calcula la suma de los elementos en una lista o tupla."
+                        },
+                        {
+                            "Funcion": "map()",
+                            "Descripcion": "Aplica una función a cada elemento de un iterable."
+                        },
+                        {
+                            "Funcion": "filter()",
+                            "Descripcion": "Filtra elementos de una lista en base a una condición."
+                        },
+                        {
+                            "Funcion": "zip()",
+                            "Descripcion": "Une dos o más listas en pares de elementos."
+                        },
+                        {
+                            "Funcion": "str.lower()",
+                            "Descripcion": "Convierte un string a minúsculas."
+                        },
+                        {
+                            "Funcion": "str.replace(antiguo, nuevo)",
+                            "Descripcion": "Reemplaza una subcadena en un string."
+                        },
+                        {
+                            "Funcion": "list.append()",
+                            "Descripcion": "Agrega un elemento al final de una lista."
+                        },
+                        {
+                            "Funcion": "list.sort()",
+                            "Descripcion": "Ordena una lista en orden ascendente o descendente."
+                        },
+                        {
+                            "Funcion": "dict.get(clave)",
+                            "Descripcion": "Obtiene un valor de un diccionario dado su clave, sin generar errores si la clave no existe."
+                        }
+                    ]
+                }
+            ],
+            "Documentacion": "https://docs.python.org/3/"
+        },
+        {
+            "Nombre": "Java",
+            "DatosImportantes": {
+                "AñoCreacion": 1995,
+                "Creador": "James Gosling",
+                "Paradigma": "Orientado a objetos, concurrente, basado en clases",
+                "UltimaVersion": "Java 17",
+                "Extensiones": [
+                    ".java"
+                ]
+            },
+            "img1": "public/img/java1.png",
+            "img2": "public/img/java2.jpg",
+            "Secciones": [
+                {
+                    "Titulo": "Historia",
+                    "Datos": "Java fue desarrollado por James Gosling y su equipo en Sun Microsystems en 1995. Su diseño tenía como objetivo principal permitir la creación de software portable y altamente seguro. La idea detrás de Java era ofrecer una plataforma independiente del hardware y sistema operativo mediante el uso de la Máquina Virtual de Java (JVM).\n\nDesde su lanzamiento, Java ha sido ampliamente adoptado en el desarrollo de aplicaciones empresariales, dispositivos móviles, sistemas embebidos y aplicaciones web. Su filosofía 'Write Once, Run Anywhere' (escribir una vez, ejecutar en cualquier lugar) ha sido clave en su éxito, consolidándolo como uno de los lenguajes de programación más utilizados en la industria."
+                },
+                {
+                    "Titulo": "Características",
+                    "Datos": "Java es un lenguaje de programación de alto nivel, orientado a objetos y diseñado para ser seguro y robusto. Posee un recolector de basura automático que gestiona la memoria y previene fugas, mejorando la estabilidad del software.\n\nAdemás, Java es multiplataforma, gracias a la Máquina Virtual de Java (JVM), lo que permite que los programas escritos en Java se ejecuten en diferentes sistemas operativos sin necesidad de modificación. Java también cuenta con una rica API estándar que proporciona funcionalidades para manipulación de datos, concurrencia, seguridad y desarrollo de interfaces gráficas."
+                },
+                {
+                    "Titulo": "Funciones Principales",
+                    "Datos": "Java incluye una biblioteca estándar extensa con soporte para estructuras de datos avanzadas, concurrencia y networking. Su modelo de programación basado en clases y objetos permite la reutilización de código y el desarrollo modular.\n\nJava también soporta programación multihilo, lo que lo hace ideal para aplicaciones que requieren ejecución en paralelo. Gracias a frameworks como Spring y Hibernate, Java sigue siendo una opción sólida para el desarrollo de aplicaciones empresariales y backend de alta demanda."
+                },
+                {
+                    "Titulo": "Usos",
+                    "Datos": "Java es utilizado en una variedad de industrias, desde aplicaciones móviles con Android hasta sistemas financieros y software de gestión empresarial. Es el lenguaje principal en el desarrollo de aplicaciones de servidor, especialmente con tecnologías como Java EE y Spring.\n\nTambién es ampliamente utilizado en sistemas embebidos, desarrollo de videojuegos y en el ámbito del big data, donde se emplea en frameworks como Apache Hadoop y Apache Spark. La confiabilidad y estabilidad de Java lo hacen ideal para aplicaciones que requieren alta escalabilidad y seguridad."
+                },
+                {
+                    "Titulo": "Funciones",
+                    "Parrafo": "Estas son algunas de las funciones más utilizadas en Java:",
+                    "Datos": [
+                        {
+                            "Funcion": "equals()",
+                            "Descripcion": "Compara el contenido de dos objetos para determinar si son iguales."
+                        },
+                        {
+                            "Funcion": "hashCode()",
+                            "Descripcion": "Devuelve un código hash que representa el objeto en memoria."
+                        },
+                        {
+                            "Funcion": "toString()",
+                            "Descripcion": "Convierte un objeto en una representación de cadena de texto."
+                        },
+                        {
+                            "Funcion": "length()",
+                            "Descripcion": "Devuelve la cantidad de caracteres en una cadena de texto."
+                        },
+                        {
+                            "Funcion": "charAt(int index)",
+                            "Descripcion": "Obtiene el carácter en la posición especificada de una cadena."
+                        },
+                        {
+                            "Funcion": "substring(int start, int end)",
+                            "Descripcion": "Extrae una subcadena de una cadena dada entre las posiciones especificadas."
+                        },
+                        {
+                            "Funcion": "indexOf(String str)",
+                            "Descripcion": "Devuelve la posición de la primera aparición de una subcadena dentro de una cadena."
+                        },
+                        {
+                            "Funcion": "split(String regex)",
+                            "Descripcion": "Divide una cadena en un array de substrings basado en una expresión regular."
+                        },
+                        {
+                            "Funcion": "replace(String old, String new)",
+                            "Descripcion": "Reemplaza todas las apariciones de una subcadena dentro de una cadena."
+                        },
+                        {
+                            "Funcion": "ArrayList.add(E element)",
+                            "Descripcion": "Añade un elemento al final de una lista dinámica."
+                        }
+                    ]
+                }
+            ],
+            "Documentacion": "https://docs.oracle.com/en/java/"
+        },
+        {
+            "Nombre": "PHP",
+            "DatosImportantes": {
+                "AñoCreacion": 1995,
+                "Creador": "Rasmus Lerdorf",
+                "Paradigma": "Imperativo, orientado a objetos, funcional",
+                "UltimaVersion": "PHP 8.1",
+                "Extensiones": [
+                    ".php"
+                ]
+            },
+            "img1": "public/img/php1.jpg",
+            "img2": "public/img/php2.png",
+            "Secciones": [
+                {
+                    "Titulo": "Historia",
+                    "Datos": "PHP fue desarrollado en 1995 por Rasmus Lerdorf inicialmente como un conjunto de scripts CGI escritos en C para administrar su sitio web personal. A medida que más personas comenzaron a usarlo y contribuir al código, PHP evolucionó hacia un lenguaje de programación completo diseñado para la creación de aplicaciones web dinámicas.\n\nCon el tiempo, PHP se ha convertido en uno de los lenguajes más utilizados en el desarrollo web, con una gran cantidad de frameworks y sistemas de gestión de contenido basados en él, como WordPress, Joomla y Drupal. La comunidad de PHP ha seguido expandiéndose y mejorando el lenguaje con cada nueva versión."
+                },
+                {
+                    "Titulo": "Características",
+                    "Datos": "PHP es un lenguaje de código abierto, interpretado y de propósito general, especialmente adecuado para el desarrollo web del lado del servidor. Posee una sintaxis similar a C y Java, lo que facilita su aprendizaje a quienes ya tienen experiencia en otros lenguajes de programación.\n\nPHP permite la integración con múltiples bases de datos, incluyendo MySQL, PostgreSQL y SQLite, facilitando la creación de aplicaciones web dinámicas. Además, cuenta con una amplia gama de funciones incorporadas para la manipulación de archivos, procesamiento de formularios y gestión de sesiones."
+                },
+                {
+                    "Titulo": "Funciones Principales",
+                    "Datos": "PHP ofrece una serie de funciones incorporadas que simplifican la manipulación de cadenas, archivos y bases de datos. Su flexibilidad le permite ejecutarse en diversos entornos de servidor y es compatible con múltiples protocolos de comunicación.\n\nGracias a su compatibilidad con HTML y su facilidad de uso, PHP sigue siendo una de las principales opciones para el desarrollo web, siendo utilizado en millones de sitios en todo el mundo. La evolución del lenguaje con PHP 7 y PHP 8 ha mejorado significativamente su rendimiento y seguridad."
+                },
+                {
+                    "Titulo": "Usos",
+                    "Datos": "PHP es utilizado principalmente en el desarrollo web para la creación de aplicaciones dinámicas y sistemas de gestión de contenido. Es el lenguaje en el que se basa WordPress, que impulsa más del 40% de los sitios web en el mundo.\n\nAdemás, PHP se usa en la creación de APIs RESTful, aplicaciones de comercio electrónico, sistemas de gestión empresarial y foros en línea. Frameworks como Laravel y Symfony han facilitado el desarrollo estructurado de aplicaciones web robustas y escalables."
+                },
+                {
+                    "Titulo": "Funciones",
+                    "Parrafo": "Estas son algunas de las funciones más utilizadas en PHP:",
+                    "Datos": [
+                        {
+                            "Funcion": "strlen()",
+                            "Descripcion": "Devuelve la longitud de una cadena de texto."
+                        },
+                        {
+                            "Funcion": "str_replace()",
+                            "Descripcion": "Reemplaza todas las apariciones de una subcadena dentro de otra cadena."
+                        },
+                        {
+                            "Funcion": "explode()",
+                            "Descripcion": "Divide una cadena en un array según un delimitador."
+                        },
+                        {
+                            "Funcion": "implode()",
+                            "Descripcion": "Convierte un array en una cadena, uniendo los elementos con un separador."
+                        },
+                        {
+                            "Funcion": "array_push()",
+                            "Descripcion": "Agrega uno o más elementos al final de un array."
+                        },
+                        {
+                            "Funcion": "array_pop()",
+                            "Descripcion": "Elimina el último elemento de un array y lo devuelve."
+                        },
+                        {
+                            "Funcion": "in_array()",
+                            "Descripcion": "Comprueba si un valor existe en un array."
+                        },
+                        {
+                            "Funcion": "json_encode()",
+                            "Descripcion": "Convierte un array o un objeto en una cadena JSON."
+                        },
+                        {
+                            "Funcion": "json_decode()",
+                            "Descripcion": "Convierte una cadena JSON en un array o un objeto."
+                        },
+                        {
+                            "Funcion": "file_get_contents()",
+                            "Descripcion": "Lee el contenido de un archivo en una cadena."
+                        }
+                    ]
+                }
+            ],
+            "Documentacion": "https://www.php.net/manual/es/"
+        },
+        {
+            "Nombre": "JavaScript",
+            "DatosImportantes": {
+                "AñoCreacion": 1995,
+                "Creador": "Brendan Eich",
+                "Paradigma": "Multiparadigma (Orientado a objetos, funcional, imperativo, basado en eventos)",
+                "UltimaVersion": "ECMAScript 2022",
+                "Extensiones": [
+                    ".js"
+                ]
+            },
+            "img1": "public/img/javascript1.jpg",
+            "img2": "public/img/javascript2.png",
+            "Secciones": [
+                {
+                    "Titulo": "Historia",
+                    "Datos": "JavaScript fue desarrollado en 1995 por Brendan Eich mientras trabajaba en Netscape Communications. Su propósito inicial era mejorar la interactividad de las páginas web, proporcionando una forma de agregar scripts en el lado del cliente. Fue creado en tan solo 10 días, lo que llevó a ciertas peculiaridades en su diseño inicial.\n\nCon el tiempo, JavaScript evolucionó significativamente, convirtiéndose en un lenguaje de programación completo que ahora es fundamental en el desarrollo web moderno. La aparición de Node.js permitió su uso en el backend, y frameworks como React, Angular y Vue.js lo han convertido en la piedra angular del desarrollo de aplicaciones web dinámicas."
+                },
+                {
+                    "Titulo": "Características",
+                    "Datos": "JavaScript es un lenguaje interpretado, de tipado dinámico y orientado a objetos basado en prototipos. Permite la manipulación del DOM para crear experiencias interactivas en la web.\n\nAdemás, soporta programación asincrónica con promesas y async/await, lo que facilita el manejo de operaciones no bloqueantes. JavaScript es altamente compatible con APIs modernas del navegador y puede integrarse con tecnologías como WebSockets, WebRTC y Service Workers."
+                },
+                {
+                    "Titulo": "Funciones Principales",
+                    "Datos": "JavaScript proporciona una gran cantidad de métodos y funciones nativas que simplifican la manipulación de datos y estructuras. Entre sus principales características se encuentran el manejo de eventos, manipulación del DOM, interacción con servidores mediante AJAX y la capacidad de construir aplicaciones de una sola página (SPA).\n\nSu ecosistema es uno de los más activos en el mundo del desarrollo, con herramientas como npm, Webpack y Babel que facilitan la creación de aplicaciones escalables."
+                },
+                {
+                    "Titulo": "Usos",
+                    "Datos": "JavaScript es el lenguaje más utilizado en el desarrollo web. En el frontend, permite la creación de interfaces dinámicas con frameworks como React, Vue y Angular. En el backend, Node.js ha permitido su expansión hacia el desarrollo de servidores y APIs escalables.\n\nAdemás, JavaScript se emplea en el desarrollo de aplicaciones móviles híbridas con herramientas como React Native, así como en el desarrollo de juegos en 2D y 3D utilizando motores como Three.js y Phaser."
+                },
+                {
+                    "Titulo": "Funciones",
+                    "Parrafo": "Estas son algunas de las funciones más utilizadas en JavaScript:",
+                    "Datos": [
+                        {
+                            "Funcion": "parseInt()",
+                            "Descripcion": "Convierte una cadena en un número entero."
+                        },
+                        {
+                            "Funcion": "parseFloat()",
+                            "Descripcion": "Convierte una cadena en un número decimal."
+                        },
+                        {
+                            "Funcion": "toFixed()",
+                            "Descripcion": "Formatea un número con una cantidad específica de decimales."
+                        },
+                        {
+                            "Funcion": "Math.random()",
+                            "Descripcion": "Genera un número decimal aleatorio entre 0 y 1."
+                        },
+                        {
+                            "Funcion": "Math.floor()",
+                            "Descripcion": "Redondea un número hacia abajo al entero más cercano."
+                        },
+                        {
+                            "Funcion": "Array.push()",
+                            "Descripcion": "Añade un elemento al final de un array."
+                        },
+                        {
+                            "Funcion": "Array.pop()",
+                            "Descripcion": "Elimina el último elemento de un array y lo devuelve."
+                        },
+                        {
+                            "Funcion": "Array.shift()",
+                            "Descripcion": "Elimina el primer elemento de un array y lo devuelve."
+                        },
+                        {
+                            "Funcion": "Array.splice()",
+                            "Descripcion": "Agrega o elimina elementos de un array en una posición específica."
+                        },
+                        {
+                            "Funcion": "Object.keys()",
+                            "Descripcion": "Devuelve un array con las claves de un objeto."
+                        }
+                    ]
+                }
+            ],
+            "Documentacion": "https://developer.mozilla.org/es/docs/Web/JavaScript"
+        },
+        {
+            "Nombre": "TypeScript",
+            "DatosImportantes": {
+                "AñoCreacion": 2012,
+                "Creador": "Microsoft",
+                "Paradigma": "Orientado a objetos, funcional, imperativo",
+                "UltimaVersion": "TypeScript 4.9",
+                "Extensiones": [
+                    ".ts"
+                ]
+            },
+            "img1": "public/img/typescript1.jpg",
+            "img2": "public/img/typescript2.png",
+            "Secciones": [
+                {
+                    "Titulo": "Historia",
+                    "Datos": "TypeScript fue desarrollado por Microsoft en 2012 como una extensión de JavaScript con características avanzadas, como tipado estático opcional y programación orientada a objetos más estricta. Su objetivo era mejorar la escalabilidad y mantenibilidad del código JavaScript en proyectos grandes.\n\nDesde su lanzamiento, TypeScript ha sido adoptado ampliamente en la industria, especialmente en aplicaciones de gran escala. Frameworks como Angular están completamente escritos en TypeScript, lo que ha impulsado su popularidad en el ecosistema de desarrollo web moderno."
+                },
+                {
+                    "Titulo": "Características",
+                    "Datos": "TypeScript es un superconjunto de JavaScript que añade tipado estático y otras mejoras. Esto permite a los desarrolladores detectar errores en tiempo de compilación en lugar de en tiempo de ejecución.\n\nTypeScript soporta interfaces, clases y módulos, lo que facilita la organización del código en aplicaciones grandes. Además, su compatibilidad con JavaScript puro permite su adopción progresiva en proyectos existentes sin necesidad de reescribir todo el código."
+                },
+                {
+                    "Titulo": "Funciones Principales",
+                    "Datos": "TypeScript permite la definición estricta de tipos, lo que reduce errores y mejora la legibilidad del código. Ofrece características avanzadas como tipos genéricos, decoradores y tuplas.\n\nAdemás, cuenta con un compilador que convierte el código TypeScript en JavaScript estándar, asegurando compatibilidad con todos los navegadores modernos y entornos de ejecución basados en JavaScript."
+                },
+                {
+                    "Titulo": "Usos",
+                    "Datos": "TypeScript es ampliamente utilizado en el desarrollo web y móvil. Frameworks como Angular y NestJS están construidos sobre TypeScript, lo que facilita la creación de aplicaciones escalables.\n\nTambién se usa en el backend con Node.js y en la creación de librerías y herramientas de desarrollo que requieren código más robusto y seguro. Su integración con React y Vue.js ha permitido a los desarrolladores mejorar la calidad y mantenibilidad de sus proyectos."
+                },
+                {
+                    "Titulo": "Funciones",
+                    "Parrafo": "Estas son algunas de las funciones más utilizadas en TypeScript:",
+                    "Datos": [
+                        {
+                            "Funcion": "let nombre: string",
+                            "Descripcion": "Define una variable con un tipo de dato específico."
+                        },
+                        {
+                            "Funcion": "const suma = (a: number, b: number) => a + b",
+                            "Descripcion": "Ejemplo de función con parámetros tipados."
+                        },
+                        {
+                            "Funcion": "interface Persona { nombre: string; edad: number; }",
+                            "Descripcion": "Define una estructura de objeto con tipos específicos."
+                        },
+                        {
+                            "Funcion": "type Color = 'rojo' | 'verde' | 'azul'",
+                            "Descripcion": "Define un conjunto de valores posibles para una variable."
+                        },
+                        {
+                            "Funcion": "class Animal { constructor(public nombre: string) {} }",
+                            "Descripcion": "Ejemplo de una clase en TypeScript con constructor público."
+                        },
+                        {
+                            "Funcion": "enum Direccion { Arriba, Abajo, Izquierda, Derecha }",
+                            "Descripcion": "Define un conjunto de valores numerados automáticamente."
+                        },
+                        {
+                            "Funcion": "function saludar(nombre: string): void",
+                            "Descripcion": "Define una función que recibe un string y no retorna nada."
+                        },
+                        {
+                            "Funcion": "const numeros: number[] = [1, 2, 3]",
+                            "Descripcion": "Ejemplo de un array tipado con números."
+                        },
+                        {
+                            "Funcion": "let valor: unknown",
+                            "Descripcion": "Tipo de variable que puede contener cualquier dato, pero requiere verificación antes de su uso."
+                        },
+                        {
+                            "Funcion": "let resultado: number | string",
+                            "Descripcion": "Define una variable que puede ser de más de un tipo."
+                        }
+                    ]
+                }
+            ],
+            "Documentacion": "https://www.typescriptlang.org/docs/"
+        }
+    ]
+}
