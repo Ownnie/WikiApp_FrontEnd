@@ -7,32 +7,41 @@ import EntityEditForm from "./EntityEditForm";
 import { useWiki } from "../context/WikiContext";
 
 type EntityCardProps = {
+    id: string;
     nombre: string;
     fechaCreacion: string;
     imagen: string;
-    descripcion: string;
+    descripcion: string; // This can now be undefined, so we handle it
 };
 
-const truncateText = (text: string, limit: number): string =>
-    text.length > limit ? text.substring(0, limit) + "..." : text;
+// Ensure text is always a string before checking length
+const truncateText = (text: string | undefined, limit: number): string =>
+    (text ?? '').length > limit ? (text ?? '').substring(0, limit) + "..." : (text ?? '');
 
 export default function EntityCard({ nombre, fechaCreacion, imagen, descripcion }: EntityCardProps) {
     const { user } = useAuth();
     const { isOpen, mode, item, openModal, closeModal } = useModal<Entity>();
     const { deleteEntity, getEntityByName } = useWiki();
-    const currentEntity: Entity = getEntityByName(nombre) as Entity;
+    const currentEntity: Entity = getEntityByName(nombre) as Entity; // Ensure currentEntity is properly typed
 
     return (
         <div className="relative bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
             {/* Imagen */}
             <div className="relative h-48">
-                <img src={imagen} alt={nombre} className="w-full h-full object-cover" />
+                {/* Add a fallback for image loading errors */}
+                <img
+                    src={imagen}
+                    alt={nombre}
+                    className="w-full h-full object-cover"
+                    onError={(e) => { e.currentTarget.src = "https://placehold.co/400x200/E9D5FF/7E3AF2?text=No+Image"; }}
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
             </div>
 
             {/* Contenido */}
             <div className="p-6">
                 <h2 className="text-2xl font-bold text-green-800 mb-2">{nombre}</h2>
+                {/* Pass descripcion safely to truncateText */}
                 <p className="text-gray-700 text-sm mb-4">{truncateText(descripcion, 120)}</p>
                 <div className="text-gray-500 text-xs">
                     <p><span className="font-semibold">Fundada:</span> {fechaCreacion}</p>
@@ -70,7 +79,7 @@ export default function EntityCard({ nombre, fechaCreacion, imagen, descripcion 
                             </button>
                             <button
                                 onClick={() => {
-                                    deleteEntity(item.nombre);
+                                    deleteEntity(item.id);
                                     closeModal();
                                 }}
                                 className="px-4 py-2 bg-red-600 text-white rounded"

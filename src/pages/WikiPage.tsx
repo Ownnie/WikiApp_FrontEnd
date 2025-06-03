@@ -5,15 +5,24 @@ import { useState } from "react";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
 export default function WikiPage() {
+    // Get the language name from the URL parameters
     const { Nombre } = useParams<{ Nombre: string }>();
+    // Access Wiki context functions to get and update language data
     const { getLanguageByName, updateLanguage } = useWiki();
+    // Access Auth context to get user information (e.g., role for editing permissions)
     const { user } = useAuth();
+
+    // Retrieve the language data based on the name
     const language = getLanguageByName(Nombre || "");
 
+    // State to manage which section is currently being edited
     const [editingIndex, setEditingIndex] = useState<number | null>(null);
+    // State to hold the text being edited in the textarea
     const [editedText, setEditedText] = useState<string>("");
-    const [newSection, setNewSection] = useState({ Titulo: "", Datos: "" });
+    // State to hold data for adding a new section
+    const [newSection, setNewSection] = useState({ titulo: "", datos: "" });
 
+    // Display a message if the language is not found
     if (!language) {
         return (
             <div className="flex flex-col items-center justify-center min-h-screen bg-purple-100 text-purple-800">
@@ -23,58 +32,118 @@ export default function WikiPage() {
         );
     }
 
+    /**
+     * Handles setting a section to edit mode.
+     * Only allows editing if the section data is a string.
+     * @param index The index of the section to edit.
+     * @param currentText The current text content of the section.
+     */
     const handleEdit = (index: number, currentText: string) => {
-        setEditingIndex(index);
-        setEditedText(currentText);
+        // Only allow editing if the data is a string
+        if (typeof currentText === "string") {
+            setEditingIndex(index);
+            setEditedText(currentText);
+        } else {
+            // Optionally, provide feedback that structured data cannot be edited directly
+            console.log("Structured data (e.g., functions list) cannot be edited directly here.");
+            // In a real app, you might show a modal or a toast message.
+        }
     };
 
+    /**
+     * Handles saving the edited section data.
+     * @param index The index of the section to save.
+     */
     const handleSave = (index: number) => {
-        if (!editedText.trim()) return; // Validación para evitar guardar texto vacío
-        const updatedSections = [...language.Secciones];
-        updatedSections[index].Datos = editedText;
-        updateLanguage(language.Nombre, { Secciones: updatedSections });
+        // Prevent saving empty text
+        if (!editedText.trim()) {
+            console.warn("Cannot save empty text.");
+            return;
+        }
+
+        // Create a copy of the sections array
+        const updatedSections = [...language.secciones];
+        // Update the data for the specific section
+        updatedSections[index].datos = editedText;
+        // Call the updateLanguage function from context to persist changes
+        // CORRECTED: Use language.id instead of language.nombre
+        updateLanguage(language.id, { secciones: updatedSections });
+        // Exit editing mode
         setEditingIndex(null);
     };
 
+    /**
+     * Handles adding a new section to the language.
+     */
     const handleAddSection = () => {
-        if (!newSection.Titulo.trim() || !newSection.Datos.trim()) return; // Validación simple
-        const updatedSections = [...language.Secciones, { ...newSection }];
-        updateLanguage(language.Nombre, { Secciones: updatedSections });
-        setNewSection({ Titulo: "", Datos: "" }); // Limpiar el formulario
+        // Basic validation for new section title and data
+        if (!newSection.titulo.trim() || !newSection.datos.trim()) {
+            console.warn("Title and data for new section cannot be empty.");
+            return;
+        }
+
+        // Create a copy of existing sections and add the new one
+        const updatedSections = [...language.secciones, { ...newSection }];
+        // Call the updateLanguage function from context to persist changes
+        // CORRECTED: Use language.id instead of language.nombre
+        updateLanguage(language.id, { secciones: updatedSections });
+        // Clear the new section form
+        setNewSection({ titulo: "", datos: "" });
     };
 
     return (
         <div className="flex flex-col items-center bg-purple-100 text-purple-800 min-h-screen py-10">
-            <h1 className="text-5xl font-bold mb-6">{language.Nombre}</h1>
+            <h1 className="text-5xl font-bold mb-6">{language.nombre}</h1>
             <div className="w-4/5 bg-white shadow-lg rounded-lg p-6">
-                {/* Información importante */}
+                {/* Important Information Section */}
                 <div className="mb-6">
                     <h2 className="text-2xl font-semibold mb-4">Datos Importantes</h2>
                     <ul className="list-disc list-inside text-gray-700">
-                        <li><strong>Año de Creación:</strong> {language.DatosImportantes.AñoCreacion}</li>
-                        <li><strong>Creador:</strong> {language.DatosImportantes.Creador}</li>
-                        <li><strong>Paradigma:</strong> {language.DatosImportantes.Paradigma}</li>
-                        <li><strong>Última Versión:</strong> {language.DatosImportantes.UltimaVersion}</li>
-                        <li><strong>Extensiones:</strong> {language.DatosImportantes.Extensiones.join(", ")}</li>
+                        <li><strong>Año de Creación:</strong> {language.anyoCreacion}</li>
+                        <li><strong>Creador:</strong> {language.creador}</li>
+                        <li><strong>Paradigma:</strong> {language.paradigma}</li>
+                        <li><strong>Última Versión:</strong> {language.ultimaVersion}</li>
+                        <li>
+                            <strong>Extensiones:</strong>{" "}
+                            {Array.isArray(language.extensiones)
+                                ? language.extensiones.join(", ")
+                                : "No especificadas"}
+                        </li>
                     </ul>
                 </div>
 
-                {/* Imágenes */}
+                {/* Images Section */}
                 <div className="flex gap-4 mb-6">
-                    <img src={language.img1} alt={`${language.Nombre} Imagen 1`} className="w-1/2 rounded-lg shadow-md" />
-                    <img src={language.img2} alt={`${language.Nombre} Imagen 2`} className="w-1/2 rounded-lg shadow-md" />
+                    {/* Placeholder images for demonstration. Replace with actual image URLs if available. */}
+                    <img
+                        src={language.img1 || "https://placehold.co/400x200/E9D5FF/7E3AF2?text=Imagen+1"}
+                        alt={`${language.nombre} Imagen 1`}
+                        className="w-1/2 rounded-lg shadow-md object-cover"
+                        onError={(e) => { e.currentTarget.src = "https://placehold.co/400x200/E9D5FF/7E3AF2?text=Error+Loading+Image"; }}
+                    />
+                    <img
+                        src={language.img2 || "https://placehold.co/400x200/E9D5FF/7E3AF2?text=Imagen+2"}
+                        alt={`${language.nombre} Imagen 2`}
+                        className="w-1/2 rounded-lg shadow-md object-cover"
+                        onError={(e) => { e.currentTarget.src = "https://placehold.co/400x200/E9D5FF/7E3AF2?text=Error+Loading+Image"; }}
+                    />
                 </div>
 
-                {/* Secciones */}
+                {/* Sections Display */}
                 <div className="mb-6">
-                    {language.Secciones.map((section, index) => (
-                        <div key={index} className="mb-6">
-                            <div className="flex items-center justify-between">
-                                <h3 className="text-xl font-semibold mb-2">{section.Titulo}</h3>
+                    {language.secciones.map((section, index) => (
+                        <div key={index} className="mb-6 border-b pb-4 last:border-b-0">
+                            <div className="flex items-center justify-between mb-2">
+                                <h3 className="text-xl font-semibold">{section.titulo}</h3>
                                 {user?.rol === "writer" && (
                                     <button
-                                        onClick={() => handleEdit(index, typeof section.Datos === "string" ? section.Datos : "")}
-                                        className="flex items-center gap-1 text-blue-600 hover:underline"
+                                        onClick={() => handleEdit(index, typeof section.datos === "string" ? section.datos : "")}
+                                        className={`flex items-center gap-1 transition-colors ${
+                                            typeof section.datos === "string"
+                                                ? "text-blue-600 hover:text-blue-800 hover:underline"
+                                                : "text-gray-400 cursor-not-allowed"
+                                        }`}
+                                        disabled={typeof section.datos !== "string"} // Disable if not a string
                                     >
                                         <PencilSquareIcon className="w-5 h-5" />
                                         Editar
@@ -82,11 +151,13 @@ export default function WikiPage() {
                                 )}
                             </div>
                             {editingIndex === index ? (
+                                // Editing mode: show textarea and save button
                                 <div>
                                     <textarea
                                         value={editedText}
                                         onChange={(e) => setEditedText(e.target.value)}
-                                        className="w-full border p-2 rounded mb-2"
+                                        className="w-full border p-2 rounded mb-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        rows={6} // Provide more rows for better editing experience
                                     />
                                     <button
                                         onClick={() => handleSave(index)}
@@ -95,42 +166,60 @@ export default function WikiPage() {
                                         Guardar
                                     </button>
                                 </div>
-                            ) : typeof section.Datos === "string" ? (
-                                <p className="text-gray-700">{section.Datos}</p>
                             ) : (
-                                <ul className="list-disc list-inside text-gray-700">
-                                    {section.Datos.map((func, idx) => (
-                                        <li key={idx}>
-                                            <strong>{func.Funcion}:</strong> {func.Descripcion}
-                                        </li>
-                                    ))}
-                                </ul>
+                                // Display mode: render based on data type (string or array)
+                                <>
+                                    {/* DEBUGGING: Log the section.datos to see its type and content */}
+                                    {console.log(`Section ${index} datos type: ${typeof section.datos}, content:`, section.datos)}
+                                    {Array.isArray(section.datos) ? (
+                                        // Render as a table if it's an array of functions
+                                        <table className="w-full text-left border border-purple-300 shadow-sm rounded overflow-hidden">
+                                            <thead className="bg-purple-200">
+                                                <tr>
+                                                    <th className="p-2 border-b border-purple-300">Función</th>
+                                                    <th className="p-2 border-b border-purple-300">Descripción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {section.datos.map((func: any, idx: number) => (
+                                                    <tr key={idx} className="even:bg-purple-50">
+                                                        <td className="p-2 border-b border-purple-200">{func.Funcion}</td>
+                                                        <td className="p-2 border-b border-purple-200">{func.Descripcion}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    ) : (
+                                        // Render as a paragraph for plain text data
+                                        <p className="text-gray-700 whitespace-pre-wrap">{section.datos || "Sin información."}</p>
+                                    )}
+                                </>
                             )}
                         </div>
                     ))}
 
-                    {/* Botón para agregar una nueva sección */}
+                    {/* Add New Section Form (only for writers) */}
                     {user?.rol === "writer" && (
-                        <div className="mt-6">
-                            <h3 className="text-xl font-semibold mb-4">Agregar Nueva Sección</h3>
+                        <div className="mt-6 p-4 border rounded-lg bg-purple-50 shadow-inner">
+                            <h3 className="text-xl font-semibold mb-4 text-purple-700">Agregar Nueva Sección</h3>
                             <div className="space-y-4">
                                 <input
                                     type="text"
                                     placeholder="Título de la sección"
-                                    value={newSection.Titulo}
-                                    onChange={(e) => setNewSection({ ...newSection, Titulo: e.target.value })}
+                                    value={newSection.titulo}
+                                    onChange={(e) => setNewSection({ ...newSection, titulo: e.target.value })}
                                     className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 />
                                 <textarea
-                                    placeholder="Descripción de la sección"
-                                    value={newSection.Datos}
-                                    onChange={(e) => setNewSection({ ...newSection, Datos: e.target.value })}
+                                    placeholder="Descripción de la sección (para funciones, use formato JSON: [{'Funcion': '...', 'Descripcion': '...'}])"
+                                    value={newSection.datos}
+                                    onChange={(e) => setNewSection({ ...newSection, datos: e.target.value })}
                                     className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                    rows={4}
+                                    rows={6} // More rows for better input experience
                                 />
                                 <button
                                     onClick={handleAddSection}
-                                    className="px-4 py-2 bg-purple-500 text-white font-bold rounded-lg shadow-md hover:bg-green-600 transition"
+                                    className="px-4 py-2 bg-green-500 text-white font-bold rounded-lg shadow-md hover:bg-green-600 transition"
                                 >
                                     Agregar Sección
                                 </button>
@@ -139,16 +228,16 @@ export default function WikiPage() {
                     )}
                 </div>
 
-                {/* Documentación */}
+                {/* Documentation Link */}
                 <div>
                     <h2 className="text-2xl font-semibold mb-4">Documentación</h2>
                     <a
-                        href={language.Documentacion}
+                        href={language.documentacion}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
+                        className="text-blue-600 hover:underline break-all" // break-all to handle long URLs
                     >
-                        {language.Documentacion}
+                        {language.documentacion}
                     </a>
                 </div>
             </div>

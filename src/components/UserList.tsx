@@ -11,6 +11,7 @@ export default function UserList() {
             {users.map((user) => (
                 <UserCard
                     key={user.id}
+                    id={user.id}
                     nombre={user.nombre}
                     apellido={user.apellido}
                     email={user.email}

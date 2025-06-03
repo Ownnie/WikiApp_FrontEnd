@@ -23,18 +23,17 @@ export default function AddButton() {
     const handleSubmit = () => {
         if (dataType === 'lenguajes') {
             const newLanguage: Language = {
-                Nombre: formData.Nombre,
-                DatosImportantes: {
-                    AñoCreacion: Number(formData.AñoCreacion),
-                    Creador: formData.Creador,
-                    Paradigma: formData.Paradigma,
-                    UltimaVersion: formData.UltimaVersion,
-                    Extensiones: formData.Extensiones.split(',').map((ext: string) => ext.trim()),
-                },
+                id: crypto.randomUUID(),
+                nombre: formData.Nombre,
+                anyoCreacion: Number(formData.AñoCreacion),
+                creador: formData.Creador,
+                paradigma: formData.Paradigma,
+                ultimaVersion: formData.UltimaVersion,
+                extensiones: formData.Extensiones.split(',').map((ext: string) => ext.trim()),
                 img1: formData.img1,
                 img2: formData.img2,
-                Secciones: [],
-                Documentacion: formData.Documentacion,
+                secciones: [],
+                documentacion: formData.Documentacion,
             };
             addLanguage(newLanguage);
         } else if (dataType === 'usuarios') {

@@ -7,6 +7,7 @@ import UserEditForm from "./UserEditForm";
 import { useWiki } from "../context/WikiContext";
 
 type UserCardProps = {
+  id: string;
   nombre: string;
   apellido: string;
   email: string;
@@ -65,7 +66,7 @@ export default function UserCard({ nombre, apellido, email, rol }: UserCardProps
               </button>
               <button
                 onClick={() => {
-                  deleteUser(item.email);
+                  deleteUser(item.id);
                   closeModal();
                 }}
                 className="px-4 py-2 bg-red-600 text-white rounded"

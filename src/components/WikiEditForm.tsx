@@ -11,10 +11,10 @@ export default function EditForm({ language, onClose }: EditFormProps) {
     const { updateLanguage } = useWiki();
 
     const [formData, setFormData] = useState({
-        Nombre: language.Nombre,
-        AñoCreacion: language.DatosImportantes.AñoCreacion,
-        Creador: language.DatosImportantes.Creador,
-        UltimaVersion: language.DatosImportantes.UltimaVersion,
+        Nombre: language.nombre,
+        AñoCreacion: language.anyoCreacion,
+        Creador: language.creador,
+        UltimaVersion: language.ultimaVersion,
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,18 +23,17 @@ export default function EditForm({ language, onClose }: EditFormProps) {
     };
 
     const handleSubmit = () => {
-        updateLanguage(language.Nombre, {
-            ...language,
-            Nombre: formData.Nombre,
-            DatosImportantes: {
-                ...language.DatosImportantes,
-                AñoCreacion: Number(formData.AñoCreacion),
-                Creador: formData.Creador,
-                UltimaVersion: formData.UltimaVersion,
-            }
-        });
+        const updatedLanguage: Partial<Language> = {
+            nombre: formData.Nombre,
+            anyoCreacion: Number(formData.AñoCreacion),
+            creador: formData.Creador,
+            ultimaVersion: formData.UltimaVersion,
+        };
+
+        updateLanguage(language.id, updatedLanguage);
         onClose();
     };
+
 
     return (
         <div className="space-y-4">

@@ -8,6 +8,7 @@ import { useWiki } from '../context/WikiContext';
 import EditForm from './WikiEditForm';
 
 type WikiCardProps = {
+  id: string;
   nombre: string;
   imagen: string;
   descripcion: string;
@@ -63,11 +64,11 @@ export default function WikiCard({ nombre, imagen, descripcion, añoCreacion, cr
       <Modal isOpen={isOpen} onClose={closeModal}>
         {mode === 'delete' && item && (
           <div>
-            <h2 className="text-lg font-bold mb-4">¿Eliminar "{item.Nombre}"?</h2>
+            <h2 className="text-lg font-bold mb-4">¿Eliminar "{item.nombre}"?</h2>
             <div className="flex justify-end gap-4">
               <button onClick={closeModal} className="px-4 py-2 bg-gray-300 rounded">Cancelar</button>
               <button onClick={() => {
-                deleteLanguage(item.Nombre);
+                deleteLanguage(item.id);
                 closeModal();
               }} className="px-4 py-2 bg-red-600 text-white rounded">Eliminar</button>
             </div>
