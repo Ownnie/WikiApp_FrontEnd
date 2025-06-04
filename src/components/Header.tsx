@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useWiki } from '../context/WikiContext';
-import { useAuth } from '../context/AuthContext'; // Asegúrate de que esta importación es correcta
+import { useAuth } from '../context/AuthContext';
 import { UserCircleIcon } from '@heroicons/react/24/solid';
 
 export default function Header() {
   const { setCurrentDataType, dataType } = useWiki();
-  const { user, logout } = useAuth(); // <--- AÑADIMOS 'logout' aquí
+  const { user, logout } = useAuth();
 
   return (
     <nav className="bg-purple-500 text-black p-4 shadow-md">
@@ -50,22 +50,19 @@ export default function Header() {
         {/* Acciones de sesión */}
         <div className="space-x-4">
           {user ? (
-            // Si el usuario está logueado, muestra su nombre y el botón de Cerrar Sesión
-            <div className="flex items-center gap-4"> {/* Añadimos gap para separar el nombre del botón */}
+            <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
                 <UserCircleIcon className="w-8 h-8 text-white" />
-                {/* Mostramos el nombre del usuario, usando un valor predeterminado si 'nombre' es undefined */}
                 <span className="text-white font-semibold">{user.nombre || user.email}</span>
               </div>
               <button
-                onClick={logout} // <--- LLAMADA A LA FUNCIÓN LOGOUT
+                onClick={logout}
                 className="bg-purple-800 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
               >
                 Cerrar Sesión
               </button>
             </div>
           ) : (
-            // Si el usuario no está logueado, muestra los botones de Iniciar Sesión y Registrarse
             <>
               <Link to="/login">
                 <button className="bg-purple-800 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">

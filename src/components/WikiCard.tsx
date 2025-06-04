@@ -6,6 +6,8 @@ import { useModal } from '../hooks/useModal';
 import type { Language } from '../types';
 import { useWiki } from '../context/WikiContext';
 import EditForm from './WikiEditForm';
+import { useEffect, useState } from "react";
+import { getUserById } from "../services/userService";
 
 type WikiCardProps = {
   id: string;
@@ -20,11 +22,29 @@ const truncateText = (text: string, limit: number): string => {
   return text.length > limit ? text.substring(0, limit) + "..." : text;
 };
 
-export default function WikiCard({ nombre, imagen, descripcion, añoCreacion, creador }: WikiCardProps) {
+
+export default function WikiCard({ id, nombre, imagen, descripcion, añoCreacion, creador }: WikiCardProps) {
   const { user } = useAuth();
   const { isOpen, mode, item, openModal, closeModal } = useModal<Language>();
-  const { deleteLanguage, getLanguageByName } = useWiki();
+  const { deleteLanguage, getLanguageByName, getUltimaEdicion } = useWiki();
   const currentLanguage = getLanguageByName(nombre);
+
+  // Estado para la última edición
+  const [ultimaEdicion, setUltimaEdicion] = useState<{ fecha: string; nombreUsuario: string } | null>(null);
+  useEffect(() => {
+    if (id) {
+      getUltimaEdicion("lenguajes", Number(id))
+        .then(async data => {
+          if (data && data.fecha && data.idUsuario) {
+            const usuario = await getUserById(String(data.idUsuario));
+            setUltimaEdicion({ fecha: data.fecha, nombreUsuario: usuario?.nombre || "Desconocido" });
+          } else {
+            setUltimaEdicion(null);
+          }
+        })
+        .catch(() => setUltimaEdicion(null));
+    }
+  }, [id, getUltimaEdicion, getUserById]);
 
   return (
     <div className="relative bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
@@ -43,6 +63,13 @@ export default function WikiCard({ nombre, imagen, descripcion, añoCreacion, cr
             <div className="text-gray-500 text-xs">
               <p><span className="font-semibold">Año de Creación:</span> {añoCreacion}</p>
               <p><span className="font-semibold">Creador:</span> {creador}</p>
+            </div>
+            {/* Última edición */}
+            <div className="mt-2 text-xs text-gray-500">
+              {ultimaEdicion
+                ? <>Última edición: {ultimaEdicion.fecha} (por {ultimaEdicion.nombreUsuario})</>
+                : <>Sin ediciones registradas</>
+              }
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@ import { useWiki } from '../context/WikiContext';
 import WikiCard from './WikiCard';
 
 const WikiList = () => {
-  const { getAllLanguages } = useWiki();
+  const { getAllLanguages, getUltimaEdicion } = useWiki();
   const languages = getAllLanguages();
 
   return (

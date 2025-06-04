@@ -65,3 +65,17 @@ export type Entity = {
     imagen: string;
     descripcion: string;
 };
+
+export type UltimaEdicionEnviada = {
+    idUsuario: number;
+    idEditado: number;
+    tabla: 'lenguajes' | 'entidades' | 'usuarios';
+};
+
+export type UltimaEdicionRecibida = {
+    id: number;
+    idUsuario: number;
+    idEditado: number;
+    tabla: 'lenguajes' | 'entidades' | 'usuarios';
+    fecha: string;
+};

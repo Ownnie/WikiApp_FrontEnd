@@ -11,10 +11,9 @@ type EntityCardProps = {
     nombre: string;
     fechaCreacion: string;
     imagen: string;
-    descripcion: string; // This can now be undefined, so we handle it
+    descripcion: string; 
 };
 
-// Ensure text is always a string before checking length
 const truncateText = (text: string | undefined, limit: number): string =>
     (text ?? '').length > limit ? (text ?? '').substring(0, limit) + "..." : (text ?? '');
 
@@ -28,7 +27,6 @@ export default function EntityCard({ nombre, fechaCreacion, imagen, descripcion 
         <div className="relative bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
             {/* Imagen */}
             <div className="relative h-48">
-                {/* Add a fallback for image loading errors */}
                 <img
                     src={imagen}
                     alt={nombre}
@@ -41,7 +39,6 @@ export default function EntityCard({ nombre, fechaCreacion, imagen, descripcion 
             {/* Contenido */}
             <div className="p-6">
                 <h2 className="text-2xl font-bold text-green-800 mb-2">{nombre}</h2>
-                {/* Pass descripcion safely to truncateText */}
                 <p className="text-gray-700 text-sm mb-4">{truncateText(descripcion, 120)}</p>
                 <div className="text-gray-500 text-xs">
                     <p><span className="font-semibold">Fundada:</span> {fechaCreacion}</p>

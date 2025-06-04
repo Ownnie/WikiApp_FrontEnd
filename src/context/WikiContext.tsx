@@ -1,8 +1,10 @@
 import { createContext, useState, useContext, useEffect, ReactNode } from 'react';
-import type { Language, User, Entity } from '../types/index';
+import type { Language, User, Entity, UltimaEdicionEnviada, UltimaEdicionRecibida } from '../types/index';
 import { getLanguages, createLanguage, updateLanguageById, deleteLanguageById } from '../services/languageService';
 import { getUsers, createUser, updateUserById, deleteUserById } from '../services/userService';
 import { getEntities, createEntity, updateEntityById, deleteEntityById } from '../services/entityService';
+import { getUltimaEdicion, registrarUltimaEdicion } from '../services/ultimaEdicionService';
+import { useAuth } from './AuthContext';
 
 export type DataType = 'lenguajes' | 'usuarios' | 'entidades';
 
@@ -36,6 +38,10 @@ interface WikiContextType {
     addEntity: (newEntity: Entity) => Promise<void>;
     updateEntity: (id: string, updatedData: Partial<Entity>) => Promise<void>;
     deleteEntity: (id: string) => Promise<void>;
+
+    //UltimaEdicion
+    getUltimaEdicion: (tabla: string, idEditado: number) => Promise<UltimaEdicionRecibida | null>;
+    registrarUltimaEdicion: (data: UltimaEdicionEnviada) => Promise<UltimaEdicionRecibida | null>;
 }
 
 const WikiContext = createContext<WikiContextType | undefined>(undefined);
@@ -56,6 +62,8 @@ export const WikiProvider = ({ children }: { children: ReactNode }) => {
     const [entities, setEntities] = useState<Entity[]>([]);
     const [loading, setLoading] = useState<boolean>(false); // Inicializar estado de carga
     const [error, setError] = useState<string | null>(null); // Inicializar estado de error
+
+    const { user } = useAuth(); // Obtén el usuario autenticado aquí
 
     // Funciones de fetch para cada tipo de dato
     const fetchLanguages = async () => {
@@ -140,7 +148,14 @@ export const WikiProvider = ({ children }: { children: ReactNode }) => {
     const updateLanguage = async (id: string, updatedData: Partial<Language>): Promise<void> => {
         try {
             await updateLanguageById(id, updatedData);
-            await fetchLanguages(); // <--- Vuelve a obtener todos los lenguajes
+            if (user) {
+                await registrarUltimaEdicion({
+                    idUsuario: Number(user.id),
+                    idEditado: Number(id),
+                    tabla: 'lenguajes'
+                });
+            }
+            await fetchLanguages();
         } catch (error) {
             console.error('Error al actualizar lenguaje:', error);
             setError('Error al actualizar lenguaje.');
@@ -177,6 +192,13 @@ export const WikiProvider = ({ children }: { children: ReactNode }) => {
     const updateUser = async (id: string, updatedData: Partial<User>): Promise<void> => {
         try {
             await updateUserById(id, updatedData);
+            if (user) {
+                await registrarUltimaEdicion({
+                    idUsuario: Number(user.id),
+                    idEditado: Number(id),
+                    tabla: 'lenguajes'
+                });
+            }
             await fetchUsers(); // <--- Vuelve a obtener todos los usuarios
         } catch (error) {
             console.error('Error al actualizar usuario:', error);
@@ -209,6 +231,13 @@ export const WikiProvider = ({ children }: { children: ReactNode }) => {
     const updateEntity = async (id: string, updatedData: Partial<Entity>): Promise<void> => {
         try {
             await updateEntityById(id, updatedData);
+            if (user) {
+                await registrarUltimaEdicion({
+                    idUsuario: Number(user.id),
+                    idEditado: Number(id),
+                    tabla: 'lenguajes'
+                });
+            }
             await fetchEntities(); // <--- Vuelve a obtener todas las entidades
         } catch (error) {
             console.error('Error al actualizar entidad:', error);
@@ -222,6 +251,25 @@ export const WikiProvider = ({ children }: { children: ReactNode }) => {
         } catch (error) {
             console.error('Error al eliminar entidad:', error);
             setError('Error al eliminar entidad.');
+        }
+    };
+
+    // Servicios de última edición
+    const getUltimaEdicionHandler = async (tabla: string, idEditado: number): Promise<UltimaEdicionRecibida | null> => {
+        try {
+            return await getUltimaEdicion(tabla, idEditado);
+        } catch (error) {
+            console.error('Error al obtener la última edición:', error);
+            return null;
+        }
+    };
+
+    const registrarUltimaEdicionHandler = async (data: UltimaEdicionEnviada): Promise<UltimaEdicionRecibida | null> => {
+        try {
+            return await registrarUltimaEdicion(data);
+        } catch (error) {
+            console.error('Error al registrar la última edición:', error);
+            return null;
         }
     };
 
@@ -251,6 +299,8 @@ export const WikiProvider = ({ children }: { children: ReactNode }) => {
                 addEntity,
                 updateEntity,
                 deleteEntity,
+                getUltimaEdicion: getUltimaEdicionHandler,
+                registrarUltimaEdicion: registrarUltimaEdicionHandler,
             }}
         >
             {children}

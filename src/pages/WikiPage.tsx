@@ -5,24 +5,16 @@ import { useState } from "react";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
 export default function WikiPage() {
-    // Get the language name from the URL parameters
     const { Nombre } = useParams<{ Nombre: string }>();
-    // Access Wiki context functions to get and update language data
     const { getLanguageByName, updateLanguage } = useWiki();
-    // Access Auth context to get user information (e.g., role for editing permissions)
     const { user } = useAuth();
 
-    // Retrieve the language data based on the name
     const language = getLanguageByName(Nombre || "");
 
-    // State to manage which section is currently being edited
     const [editingIndex, setEditingIndex] = useState<number | null>(null);
-    // State to hold the text being edited in the textarea
     const [editedText, setEditedText] = useState<string>("");
-    // State to hold data for adding a new section
     const [newSection, setNewSection] = useState({ titulo: "", datos: "" });
 
-    // Display a message if the language is not found
     if (!language) {
         return (
             <div className="flex flex-col items-center justify-center min-h-screen bg-purple-100 text-purple-800">
@@ -32,62 +24,35 @@ export default function WikiPage() {
         );
     }
 
-    /**
-     * Handles setting a section to edit mode.
-     * Only allows editing if the section data is a string.
-     * @param index The index of the section to edit.
-     * @param currentText The current text content of the section.
-     */
     const handleEdit = (index: number, currentText: string) => {
-        // Only allow editing if the data is a string
         if (typeof currentText === "string") {
             setEditingIndex(index);
             setEditedText(currentText);
         } else {
-            // Optionally, provide feedback that structured data cannot be edited directly
             console.log("Structured data (e.g., functions list) cannot be edited directly here.");
-            // In a real app, you might show a modal or a toast message.
         }
     };
 
-    /**
-     * Handles saving the edited section data.
-     * @param index The index of the section to save.
-     */
     const handleSave = (index: number) => {
-        // Prevent saving empty text
         if (!editedText.trim()) {
             console.warn("Cannot save empty text.");
             return;
         }
 
-        // Create a copy of the sections array
         const updatedSections = [...language.secciones];
-        // Update the data for the specific section
         updatedSections[index].datos = editedText;
-        // Call the updateLanguage function from context to persist changes
-        // CORRECTED: Use language.id instead of language.nombre
         updateLanguage(language.id, { secciones: updatedSections });
-        // Exit editing mode
         setEditingIndex(null);
     };
 
-    /**
-     * Handles adding a new section to the language.
-     */
     const handleAddSection = () => {
-        // Basic validation for new section title and data
         if (!newSection.titulo.trim() || !newSection.datos.trim()) {
             console.warn("Title and data for new section cannot be empty.");
             return;
         }
 
-        // Create a copy of existing sections and add the new one
         const updatedSections = [...language.secciones, { ...newSection }];
-        // Call the updateLanguage function from context to persist changes
-        // CORRECTED: Use language.id instead of language.nombre
         updateLanguage(language.id, { secciones: updatedSections });
-        // Clear the new section form
         setNewSection({ titulo: "", datos: "" });
     };
 
@@ -138,12 +103,11 @@ export default function WikiPage() {
                                 {user?.rol === "writer" && (
                                     <button
                                         onClick={() => handleEdit(index, typeof section.datos === "string" ? section.datos : "")}
-                                        className={`flex items-center gap-1 transition-colors ${
-                                            typeof section.datos === "string"
+                                        className={`flex items-center gap-1 transition-colors ${typeof section.datos === "string"
                                                 ? "text-blue-600 hover:text-blue-800 hover:underline"
                                                 : "text-gray-400 cursor-not-allowed"
-                                        }`}
-                                        disabled={typeof section.datos !== "string"} // Disable if not a string
+                                            }`}
+                                        disabled={typeof section.datos !== "string"}
                                     >
                                         <PencilSquareIcon className="w-5 h-5" />
                                         Editar
@@ -151,13 +115,12 @@ export default function WikiPage() {
                                 )}
                             </div>
                             {editingIndex === index ? (
-                                // Editing mode: show textarea and save button
                                 <div>
                                     <textarea
                                         value={editedText}
                                         onChange={(e) => setEditedText(e.target.value)}
                                         className="w-full border p-2 rounded mb-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                        rows={6} // Provide more rows for better editing experience
+                                        rows={6}
                                     />
                                     <button
                                         onClick={() => handleSave(index)}
@@ -167,12 +130,9 @@ export default function WikiPage() {
                                     </button>
                                 </div>
                             ) : (
-                                // Display mode: render based on data type (string or array)
                                 <>
-                                    {/* DEBUGGING: Log the section.datos to see its type and content */}
                                     {console.log(`Section ${index} datos type: ${typeof section.datos}, content:`, section.datos)}
                                     {Array.isArray(section.datos) ? (
-                                        // Render as a table if it's an array of functions
                                         <table className="w-full text-left border border-purple-300 shadow-sm rounded overflow-hidden">
                                             <thead className="bg-purple-200">
                                                 <tr>
@@ -190,7 +150,6 @@ export default function WikiPage() {
                                             </tbody>
                                         </table>
                                     ) : (
-                                        // Render as a paragraph for plain text data
                                         <p className="text-gray-700 whitespace-pre-wrap">{section.datos || "Sin información."}</p>
                                     )}
                                 </>
@@ -198,7 +157,6 @@ export default function WikiPage() {
                         </div>
                     ))}
 
-                    {/* Add New Section Form (only for writers) */}
                     {user?.rol === "writer" && (
                         <div className="mt-6 p-4 border rounded-lg bg-purple-50 shadow-inner">
                             <h3 className="text-xl font-semibold mb-4 text-purple-700">Agregar Nueva Sección</h3>
@@ -215,7 +173,7 @@ export default function WikiPage() {
                                     value={newSection.datos}
                                     onChange={(e) => setNewSection({ ...newSection, datos: e.target.value })}
                                     className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                    rows={6} // More rows for better input experience
+                                    rows={6}
                                 />
                                 <button
                                     onClick={handleAddSection}
@@ -235,7 +193,7 @@ export default function WikiPage() {
                         href={language.documentacion}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline break-all" // break-all to handle long URLs
+                        className="text-blue-600 hover:underline break-all"
                     >
                         {language.documentacion}
                     </a>

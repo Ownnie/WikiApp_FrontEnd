@@ -14,18 +14,11 @@ export const useAuth = (): AuthContextType => {
 
 const API_URL = 'http://localhost:8080/login';
 
-/**
- * Helper function to decode the payload of a JWT.
- * @param token The JWT string.
- * @returns The decoded payload object, or null if decoding fails.
- */
+
 const decodeJwtPayload = (token: string): any => {
     try {
-        // JWTs have three parts: header.payload.signature
         const base64Url = token.split('.')[1];
-        // Replace URL-safe characters with standard base64 characters
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        // Decode base64 and then decode URI components for special characters
         const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
@@ -45,28 +38,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         let storedUser = localStorage.getItem('user');
 
         if (token && storedUser) {
-            // IMPORTANT: Check if storedUser is the string "undefined" or "null"
-            // These are not valid JSON strings for JSON.parse()
             if (storedUser === "undefined" || storedUser === "null") {
                 console.warn("Invalid user data in localStorage, clearing it.");
                 localStorage.removeItem('user');
-                storedUser = null; // Treat as if no user was stored
+                storedUser = null;
             }
 
-            if (storedUser) { // Only attempt to parse if storedUser is not null after the check
+            if (storedUser) {
                 try {
                     const parsedUser = JSON.parse(storedUser);
                     setUser(parsedUser);
                 } catch (error) {
                     console.error('Error al parsear user del localStorage:', error);
-                    // If parsing fails, remove the invalid item to prevent future errors
                     localStorage.removeItem('user');
                 }
             }
         }
     }, []);
 
-    // 🔓 Función para iniciar sesión
     const login = async (email: string, password: string): Promise<boolean> => {
         try {
             const res = await fetch(API_URL, {
@@ -82,22 +71,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 throw new Error(errorData.message || 'Credenciales inválidas');
             }
 
-            const data = await res.json(); // This should contain { token: '...' }
+            const data = await res.json();
 
             if (data.token) {
                 const decodedPayload = decodeJwtPayload(data.token);
 
                 if (decodedPayload) {
-                    // Construct a User object from the decoded payload
-                    // Note: 'nombre' and 'apellido' might be missing if not explicitly added to JWT payload by backend
                     const userFromToken: User = {
                         id: decodedPayload.id,
                         email: decodedPayload.email,
                         rol: decodedPayload.rol,
-                        nombre: decodedPayload.nombre || '', // Provide default if not in payload
-                        apellido: decodedPayload.apellido || '', // Provide default if not in payload
-                        // Password should never be stored on the client or derived from token
-                        password: '', // This field is typically not populated from JWT for security reasons
+                        nombre: decodedPayload.nombre || '',
+                        apellido: decodedPayload.apellido || '',
+                        password: '',
                     };
 
                     localStorage.setItem('token', data.token);
@@ -109,15 +95,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                     throw new Error('Error al procesar el token de autenticación.');
                 }
             } else {
-                // This case should ideally not happen if the backend always returns a token on success
                 console.error('Login successful but token is missing from API response.', data);
                 throw new Error('Token de autenticación incompleto en la respuesta.');
             }
 
-        } catch (err: any) { // Cast err to any to access message property
+        } catch (err: any) {
             console.error('Error al iniciar sesión:', err.message);
-            // Use a custom modal or toast instead of alert()
-            // For now, let's just log it. In a real app, you'd show a user-friendly message.
             console.log('Mostrar mensaje al usuario: Credenciales incorrectas');
             return false;
         }
@@ -149,12 +132,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 const errorData = await res.json().catch(() => ({ message: 'Error al registrar usuario' }));
                 throw new Error(errorData.message || 'Error al registrar usuario');
             }
-            // Assuming successful registration doesn't return user data to log in immediately
-            // If it does, you might want to call login(email, password) here or process data.
             return true;
-        } catch (err: any) { // Cast err to any to access message property
+        } catch (err: any) {
             console.error('Error al registrar usuario:', err.message);
-            // Use a custom modal or toast instead of alert()
             console.log('Mostrar mensaje al usuario: Error al registrar usuario');
             return false;
         }

@@ -1,20 +1,17 @@
 import { useWiki } from "../context/WikiContext";
 import { Entity } from "../types";
 import EntityCard from "./EntityCard";
-import { useEffect } from "react"; // Import useEffect
+import { useEffect } from "react"; 
 
 export default function EntityList() {
     const { data, dataType, setCurrentDataType } = useWiki();
 
-    // Use useEffect to set the data type to 'entidades' when this component mounts
     useEffect(() => {
-        // Only set if it's not already 'entidades' to avoid unnecessary re-renders/fetches
         if (dataType !== 'entidades') {
             setCurrentDataType('entidades');
         }
-    }, [dataType, setCurrentDataType]); // Depend on dataType and setCurrentDataType
+    }, [dataType, setCurrentDataType]); 
 
-    // Filter data to ensure we only process 'Entity' types
     const entidades = (dataType === "entidades" ? data : []) as Entity[];
 
     return (
